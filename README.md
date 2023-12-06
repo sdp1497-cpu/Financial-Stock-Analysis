@@ -36,6 +36,66 @@ TA Library
 Run the Python scripts in the main directory to perform the analysis. The scripts will output cleaned data and visualizations.
 
 
+import yfinance as yf
+
+import pandas as pd
+
+from ta.momentum import RSIIndicator
+
+import datetime 
+
+import ta
+
+import matplotlib.pyplot as plt
+
+import plotly.express as px
+
+import numpy as np
+
+import warnings
+
+warnings.filterwarnings('ignore')
+
+
+
+stocks = ['MSFT', 'AAPL', 'TSLA', 'NVDA', 'AMZN', 'META', 'GOOGL', 'GOOG', 'AVGO', 'PEP']
+
+start_date = datetime.datetime.now() - datetime.timedelta(days=10*365)
+
+data = yf.download(stocks, start=start_date,group_by='tickers')
+
+print(data.head())
+
+print(data.isnull().sum())
+
+
+for stock in stocks:
+    
+    data.drop(columns=[(stock, 'Adj Close'), (stock, 'Volume')], inplace=True)
+
+data.to_excel('rawfile.xlsx',index=True)
+
+print(" The raw data file has been written without columns Adj Close and Volume")
+
+fig, ax = plt.subplots(figsize=(15,7))
+
+for stock in stocks:
+
+    ax.plot(data[stock]['Close'], label=stock)
+
+ax.set_title('Closing Price Over Time')
+
+ax.set_xlabel('Date')
+
+ax.set_ylabel('Price in CAD')
+
+ax.legend()
+
+plt.show()
+
+
+![canlde](https://github.com/sdp1497-cpu/Financial-Stock-Analysis/assets/153023802/d78d97f3-c886-472d-9c9f-443a6ff84a3b)
+
 
 ## Authors
 

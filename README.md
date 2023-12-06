@@ -7,9 +7,6 @@ Python 3.5+
 
 Jupyter Notebook Python 3 
 
-VS Code Studio 
-
-
 ## Dependencies 
 Pandas library
 
